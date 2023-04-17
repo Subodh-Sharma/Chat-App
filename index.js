@@ -18,7 +18,9 @@ app.use(express.json());
 app.use(cors());
 
 
-
+app.get("/",(req,res)=>{
+    res.send("Hello world");
+});
 
 app.use('/api/user',userRouter);
 app.use('/api/chat',chatRouter);
@@ -26,19 +28,19 @@ app.use('/api/message',messageRouter);
 
 // ---------------Deployment----------------
 
-const __dirname1 = path.resolve();
-console.log(__dirname1);
-console.log(process.env.NODE_ENV);
-if(process.env.NODE_ENV === "production"){
-    app.use(express.static(path.join(__dirname1,"/server/build")));
-    app.get("*",(req,res)=>{
-        res.sendFile(path.resolve(__dirname1,"server","build","index.html"));
-    })
-}else{
-    app.get("/",(req,res)=>{
-        res.send("Hello world");
-    });
-}
+// const __dirname1 = path.resolve();
+// console.log(__dirname1);
+// console.log(process.env.NODE_ENV);
+// if(process.env.NODE_ENV === "production"){
+//     app.use(express.static(path.join(__dirname1,"/server/build")));
+//     app.get("*",(req,res)=>{
+//         res.sendFile(path.resolve(__dirname1,"server","build","index.html"));
+//     })
+// }else{
+//     app.get("/",(req,res)=>{
+//         res.send("Hello world");
+//     });
+// }
 
 // ---------------Deployment----------------
 
