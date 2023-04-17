@@ -11,7 +11,7 @@ import { errorHandler,notFound } from "./middlewares/error.js";
 import { Server, Socket } from "socket.io";
 
 dotenv.config();
-const port = process.env.PORT || 8000;
+const port = process.env.PORT;
 
 
 const app = express();
