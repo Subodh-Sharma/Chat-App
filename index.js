@@ -9,12 +9,14 @@ import chatRouter from "./routes/chatRoutes.js";
 import messageRouter from "./routes/messageRouter.js";
 import { errorHandler,notFound } from "./middlewares/error.js";
 import { Server, Socket } from "socket.io";
-const port = process.env.PORT || 8000;
 
 dotenv.config();
+const port = process.env.PORT || 8000;
+
 
 const app = express();
-app.use(express.json());
+app.use(express.json({limit:"30mb",extended:true}));
+app.use(express.urlencoded({limit:"30mb",extended: true}));
 app.use(cors());
 
 
