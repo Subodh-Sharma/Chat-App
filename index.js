@@ -56,7 +56,7 @@ mongoose.connect(process.env.DB_URL,{
 }).then(()=>{
     const server = app.listen(port,console.log(`listening at port ${port}`));
     const io = new Server(server,{
-        pingTimeout: 60000,
+        pingTimeout: 5000,
         transports: ['websocket'],
         cors: {
             origin: "http://localhost:3000"
