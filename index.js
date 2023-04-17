@@ -8,7 +8,7 @@ import userRouter from "./routes/userRoutes.js";
 import chatRouter from "./routes/chatRoutes.js";
 import messageRouter from "./routes/messageRouter.js";
 import { errorHandler,notFound } from "./middlewares/error.js";
-import { Server, Socket } from "socket.io";
+import { Server } from "socket.io";
 
 dotenv.config();
 const port = process.env.PORT;
@@ -57,6 +57,7 @@ mongoose.connect(process.env.DB_URL,{
     const server = app.listen(port,console.log(`listening at port ${port}`));
     const io = new Server(server,{
         pingTimeout: 60000,
+        transports: ['websocket'],
         cors: {
             origin: "http://localhost:3000"
         }
