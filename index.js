@@ -24,6 +24,8 @@ app.use(cors());
 //     res.send("Hello world");
 // });
 
+
+
 app.use('/api/user',userRouter);
 app.use('/api/chat',chatRouter);
 app.use('/api/message',messageRouter);
@@ -55,6 +57,9 @@ mongoose.connect(process.env.DB_URL,{
     useUnifiedTopology: true
 }).then(()=>{
     const server = app.listen(port,console.log(`listening at port ${port}`));
+    server.prependListener("request", (req, res) => {
+        res.setHeader("Access-Control-Allow-Origin", "*");
+     });
     const io = new Server(server,{
         cors: {
             origin: "*"
