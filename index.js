@@ -91,10 +91,10 @@ mongoose.connect(process.env.DB_URL,{
             socket.in(room).emit("stop typing");
         })
 
-        socket.off("setup",()=>{
-            console.log("USER DISCONNECTED");
-            socket.leave(userData._id)
-        })
+        // socket.off("setup",()=>{
+        //     console.log("USER DISCONNECTED");
+        //     socket.leave(userData._id)
+        // })
     })
 }).catch((error)=>{
     console.log(error);
