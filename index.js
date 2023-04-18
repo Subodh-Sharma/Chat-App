@@ -59,7 +59,8 @@ mongoose.connect(process.env.DB_URL,{
         pingTimeout: 5000,
         transports: ['websocket'],
         cors: {
-            origin: "http://localhost:3000"
+            origin: "*",
+            methods: ["GET", "POST"],
         }
     })
     io.on("connection",(socket)=>{
