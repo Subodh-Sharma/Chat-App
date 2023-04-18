@@ -56,7 +56,9 @@ const io = new Server(server, {
   pingTimeout: 60000,
   cors: {
     origin: "*",
+    credentials: true,
   },
+  allowEIO4: true,
 });
 io.on("connection", (socket) => {
   console.log("Connected to socket.io");
