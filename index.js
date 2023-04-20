@@ -61,8 +61,17 @@ const server = app.listen(port, console.log(`listening at port ${port}`));
 
 const io = new Server(server,{
   cors: {
-    origin: "*",
-  },
+    origin: ["*"],
+    handlePreflightRequest: (req,res)=>{
+      res.write(200,{
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "GET,POST",
+        "Access-Control-Allow-Headers": "my-custom-header",
+        "Access-Control-Allow-Credentials": true
+      });
+      res.end();
+    }
+  }
 });
 io.on("connection", (socket) => {
   console.log("Connected to socket.io");
