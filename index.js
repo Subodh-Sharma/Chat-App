@@ -60,8 +60,8 @@ app.use(errorHandler);
 const server = app.listen(port, console.log(`listening at port ${port}`));
 
 const io = new Server(server,{
+  allowEIO3: true,
   cors: {
-    allowEIO4: true,
     origin: ["*"],
     handlePreflightRequest: (req,res)=>{
       res.write(200,{
@@ -73,6 +73,7 @@ const io = new Server(server,{
       res.end();
     }
   }
+
 });
 io.on("connection", (socket) => {
   console.log("Connected to socket.io");
