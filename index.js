@@ -61,6 +61,7 @@ const server = app.listen(port, console.log(`listening at port ${port}`));
 
 const io = new Server(server,{
   cors: {
+    allowEIO4: true,
     origin: ["*"],
     handlePreflightRequest: (req,res)=>{
       res.write(200,{
