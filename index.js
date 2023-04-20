@@ -5,6 +5,7 @@ import express from "express";
 import mongoose from "mongoose";
 import path from "path";
 import https from "https";
+import fs from "fs";
 import userRouter from "./routes/userRoutes.js";
 import chatRouter from "./routes/chatRoutes.js";
 import messageRouter from "./routes/messageRouter.js";
@@ -18,10 +19,10 @@ connectDB();
 const port =  process.env.PORT;
 
 const app = express();
-// var options = {
-//   key: fs.readFileSync('test/fixtures/keys/agent2-key.pem'),
-//   cert: fs.readFileSync('test/fixtures/keys/agent2-cert.cert')
-// };
+var options = {
+  key: fs.readFileSync('test/fixtures/keys/agent2-key.pem'),
+  cert: fs.readFileSync('test/fixtures/keys/agent2-cert.cert')
+};
 const server = https.createServer(options,app);
 app.use(express.json({ limit: "30mb", extended: true }));
 app.use(express.urlencoded({ limit: "30mb", extended: true }));
