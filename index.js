@@ -4,6 +4,7 @@ import express from "express";
 // import { chats } from "./data/data.js";
 import mongoose from "mongoose";
 import path from "path";
+import https from "https";
 import userRouter from "./routes/userRoutes.js";
 import chatRouter from "./routes/chatRoutes.js";
 import messageRouter from "./routes/messageRouter.js";
@@ -14,9 +15,14 @@ import connectDB from "./config/db.js";
 dotenv.config();
 connectDB();
 
-const port =  8000;
+const port =  process.env.PORT;
 
 const app = express();
+var options = {
+  key: fs.readFileSync('test/fixtures/keys/agent2-key.pem'),
+  cert: fs.readFileSync('test/fixtures/keys/agent2-cert.cert')
+};
+const server = https.createServer(options,app);
 app.use(express.json({ limit: "30mb", extended: true }));
 app.use(express.urlencoded({ limit: "30mb", extended: true }));
 // app.use(cors());
@@ -50,15 +56,13 @@ app.use("/api/message", messageRouter);
 app.use(notFound);
 app.use(errorHandler);
 
-const server = app.listen(port, console.log(`listening at port ${port}`));
+// const server = app.listen(port, console.log(`listening at port ${port}`));
 
-const io = new Server(server, {
+const io = new Server(server,{
   pingTimeout: 60000,
   cors: {
     origin: "*",
-    credentials: true,
   },
-  allowEIO4: true,
 });
 io.on("connection", (socket) => {
   console.log("Connected to socket.io");
@@ -90,3 +94,8 @@ io.on("connection", (socket) => {
       socket.leave(userData._id)
   })
 });
+
+
+server.listen(port,()=>{
+  console.log(`server listening at port ${port}`);
+})
