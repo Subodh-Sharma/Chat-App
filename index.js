@@ -62,7 +62,7 @@ const server = app.listen(port, console.log(`listening at port ${port}`));
 const io = new Server(server,{
   allowEIO3: true,
   cors: {
-    origin: ["*"],
+    origin: ["http://localhost:3000"],
     handlePreflightRequest: (req,res)=>{
       res.write(200,{
         "Access-Control-Allow-Origin": "*",
