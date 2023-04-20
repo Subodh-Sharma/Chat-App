@@ -63,15 +63,15 @@ const io = new Server(server,{
   allowEIO3: true,
   cors: {
     origin: ["http://localhost:3000"],
-    handlePreflightRequest: (req,res)=>{
-      res.write(200,{
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Methods": "GET,POST",
-        "Access-Control-Allow-Headers": "my-custom-header",
-        "Access-Control-Allow-Credentials": true,
-      });
-      res.end();
-    }
+    // handlePreflightRequest: (req,res)=>{
+    //   res.write(200,{
+    //     "Access-Control-Allow-Origin": "*",
+    //     "Access-Control-Allow-Methods": "GET,POST",
+    //     "Access-Control-Allow-Headers": "my-custom-header",
+    //     "Access-Control-Allow-Credentials": true,
+    //   });
+    //   res.end();
+    // }
   }
 
 });
