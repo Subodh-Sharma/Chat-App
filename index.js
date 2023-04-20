@@ -60,7 +60,6 @@ app.use(errorHandler);
 const server = app.listen(port, console.log(`listening at port ${port}`));
 
 const io = new Server(server,{
-  pingTimeout: 60000,
   cors: {
     origin: "*",
   },
