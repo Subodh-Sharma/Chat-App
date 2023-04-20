@@ -4,8 +4,8 @@ import cors from "cors";
 // import { chats } from "./data/data.js";
 // import mongoose from "mongoose";
 // import path from "path";
-// import https from "https";
-// import fs from "fs";
+import https from "https";
+import fs from "fs";
 import userRouter from "./routes/userRoutes.js";
 import chatRouter from "./routes/chatRoutes.js";
 import messageRouter from "./routes/messageRouter.js";
@@ -19,10 +19,11 @@ connectDB();
 const port =  process.env.PORT;
 
 const app = express();
-// var options = {
-//   key: fs.readFileSync('test/fixtures/keys/agent2-key.pem'),
-//   cert: fs.readFileSync('test/fixtures/keys/agent2-cert.cert')
-// };
+var options = {
+  key: fs.readFileSync('sslcert/server.key','utf-8'),
+  cert: fs.readFileSync('sslcert/server.crt','utf-8')
+};
+const server = https.createServer(options,app);
 
 app.use(express.json({ limit: "30mb", extended: true }));
 app.use(express.urlencoded({ limit: "30mb", extended: true }));
@@ -57,7 +58,7 @@ app.use("/api/message", messageRouter);
 app.use(notFound);
 app.use(errorHandler);
 
-const server = app.listen(port, console.log(`listening at port ${port}`));
+// const server = app.listen(port, console.log(`listening at port ${port}`));
 
 const io = new Server(server,{
   allowEIO3: true,
@@ -107,6 +108,10 @@ io.on("connection", (socket) => {
 });
 
 
-// server.listen(port,()=>{
-//   console.log(`server listening at port ${port}`);
-// })
+server.listen(port,()=>{
+  console.log(`server listening at port ${port}`);
+})
+
+
+//garret.ns.cloudflare.com
+//sima.ns.cloudflare.com
