@@ -2,10 +2,10 @@ import dotenv from "dotenv";
 import express from "express";
 // import cors from "cors";
 // import { chats } from "./data/data.js";
-import mongoose from "mongoose";
-import path from "path";
-import https from "https";
-import fs from "fs";
+// import mongoose from "mongoose";
+// import path from "path";
+// import https from "https";
+// import fs from "fs";
 import userRouter from "./routes/userRoutes.js";
 import chatRouter from "./routes/chatRoutes.js";
 import messageRouter from "./routes/messageRouter.js";
@@ -19,11 +19,11 @@ connectDB();
 const port =  process.env.PORT;
 
 const app = express();
-var options = {
-  key: fs.readFileSync('test/fixtures/keys/agent2-key.pem'),
-  cert: fs.readFileSync('test/fixtures/keys/agent2-cert.cert')
-};
-const server = https.createServer(options,app);
+// var options = {
+//   key: fs.readFileSync('test/fixtures/keys/agent2-key.pem'),
+//   cert: fs.readFileSync('test/fixtures/keys/agent2-cert.cert')
+// };
+
 app.use(express.json({ limit: "30mb", extended: true }));
 app.use(express.urlencoded({ limit: "30mb", extended: true }));
 // app.use(cors());
@@ -57,7 +57,7 @@ app.use("/api/message", messageRouter);
 app.use(notFound);
 app.use(errorHandler);
 
-// const server = app.listen(port, console.log(`listening at port ${port}`));
+const server = app.listen(port, console.log(`listening at port ${port}`));
 
 const io = new Server(server,{
   pingTimeout: 60000,
@@ -97,6 +97,6 @@ io.on("connection", (socket) => {
 });
 
 
-server.listen(port,()=>{
-  console.log(`server listening at port ${port}`);
-})
+// server.listen(port,()=>{
+//   console.log(`server listening at port ${port}`);
+// })
