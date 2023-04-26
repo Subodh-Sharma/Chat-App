@@ -3,9 +3,9 @@ import express from "express";
 import cors from "cors";
 // import { chats } from "./data/data.js";
 // import mongoose from "mongoose";
-// import path from "path";
-import https from "https";
-import fs from "fs";
+import path from "path";
+// import https from "https";
+// import fs from "fs";
 import userRouter from "./routes/userRoutes.js";
 import chatRouter from "./routes/chatRoutes.js";
 import messageRouter from "./routes/messageRouter.js";
@@ -19,19 +19,19 @@ connectDB();
 const port =  process.env.PORT;
 
 const app = express();
-var options = {
-  key: fs.readFileSync('sslcert/server.key','utf-8'),
-  cert: fs.readFileSync('sslcert/server.crt','utf-8')
-};
-const server = https.createServer(options,app);
+// var options = {
+//   key: fs.readFileSync('sslcert/server.key','utf-8'),
+//   cert: fs.readFileSync('sslcert/server.crt','utf-8')
+// };
+// const server = https.createServer(options,app);
 
-app.use(express.json({ limit: "30mb", extended: true }));
-app.use(express.urlencoded({ limit: "30mb", extended: true }));
+app.use(express.json());
+// app.use(express.urlencoded({ limit: "30mb", extended: true }));
 app.use(cors());
 
-app.get("/",(req,res)=>{
-    res.send("Hello world");
-});
+// app.get("/",(req,res)=>{
+//     res.send("Hello world");
+// });
 
 app.use("/api/user", userRouter);
 app.use("/api/chat", chatRouter);
@@ -39,31 +39,31 @@ app.use("/api/message", messageRouter);
 
 // ---------------Deployment----------------
 
-// const __dirname1 = path.resolve();
-//  console.log(__dirname1);
-//  console.log(process.env.NODE_ENV);
-// if (process.env.NODE_ENV === "production") {
-//   app.use(express.static(path.join(__dirname1, "/build")));
-//   app.get("*", (req, res) => {
-//     res.sendFile(path.resolve(__dirname1, "build", "index.html"));
-//   });
-// } else {
-//   app.get("/", (req, res) => {
-//     res.send("Hello world");
-//   });
-// }
+const __dirname1 = path.resolve();
+ console.log(__dirname1);
+ console.log(process.env.NODE_ENV);
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname1, "/build")));
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname1, "build", "index.html"));
+  });
+} else {
+  app.get("/", (req, res) => {
+    res.send("Hello world");
+  });
+}
 
 // ---------------Deployment----------------
 
 app.use(notFound);
 app.use(errorHandler);
 
-// const server = app.listen(port, console.log(`listening at port ${port}`));
+const server = app.listen(port, console.log(`listening at port ${port}`));
 
 const io = new Server(server,{
-  allowEIO3: true,
+  // allowEIO3: true,
   cors: {
-    origin: ["http://localhost:3000"],
+    origin: "*",
     // handlePreflightRequest: (req,res)=>{
     //   res.write(200,{
     //     "Access-Control-Allow-Origin": "*",
