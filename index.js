@@ -108,9 +108,9 @@ io.on("connection", (socket) => {
 });
 
 
-server.listen(port,()=>{
-  console.log(`server listening at port ${port}`);
-})
+// server.listen(port,()=>{
+//   console.log(`server listening at port ${port}`);
+// })
 
 
 //garret.ns.cloudflare.com
