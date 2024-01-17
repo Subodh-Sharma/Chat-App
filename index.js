@@ -2,7 +2,7 @@ import dotenv from "dotenv";
 import express from "express";
 import cors from "cors";
 // import path from "path";
-// import https from "https";
+import http from "http";
 import userRouter from "./routes/userRoutes.js";
 import chatRouter from "./routes/chatRoutes.js";
 import messageRouter from "./routes/messageRouter.js";
@@ -17,7 +17,7 @@ const port =  process.env.PORT;
 
 const app = express();
 
-// const server = https.createServer(app);
+const server = http.createServer(app);
 app.use(express.json());
 app.use(express.urlencoded({ limit: "30mb", extended: true }));
 app.use(cors());
@@ -34,7 +34,7 @@ app.use("/api/message", messageRouter);
 app.use(notFound);
 app.use(errorHandler);
 
-const server = app.listen(port, console.log(`listening at port ${port}`));
+server.listen(port, console.log(`listening at port ${port}`));
 
 const io = new Server(server,{
   cors: {
