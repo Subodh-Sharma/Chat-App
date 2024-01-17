@@ -38,8 +38,7 @@ server.listen(port, console.log(`listening at port ${port}`));
 
 const io = new Server(server,{
   cors: {
-    //origin: "https://subodh-chat-app-client.vercel.app/",
-    origin: "*"
+    origin: "https://subodh-chat-app-client.vercel.app/",
   }
 
 });
