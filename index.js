@@ -36,12 +36,7 @@ app.use(errorHandler);
 
 server.listen(port, console.log(`listening at port ${port}`));
 
-const io = new Server(server,{
-  cors: {
-    origin: "https://subodh-chat-app-client.vercel.app/",
-  }
-
-});
+const io = new Server(server);
 io.on("connection", (socket) => {
   console.log("Connected to socket.io");
   socket.on("setup", (userData) => {
