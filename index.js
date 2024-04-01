@@ -20,7 +20,9 @@ const app = express();
 const server = http.createServer(app);
 app.use(express.json());
 app.use(express.urlencoded({ limit: "30mb", extended: true }));
-app.use(cors());
+app.use(cors({
+  origin: "https://subodh-chat-app-client.vercel.app/"
+}));
 
 app.get("/",(req,res)=>{
     res.send("Welcome to Subodh Chat App Server");
